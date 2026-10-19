@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Construction, building, renovation, and design services.">
+  <title>Buildora | Construction & Design</title>
+  <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="navbar">
+    <a href="#home" class="logo">BUILDORA<span>.</span></a>
+
+    <button id="menu-toggle" aria-label="Toggle navigation">☰</button>
+
+    <nav id="navigation">
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact" class="nav-button">Contact Us ↗</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content reveal">
+        <p class="eyebrow">CONSTRUCTION · DESIGN · RENOVATION</p>
+        <h1>Building your<br>vision into <span>reality.</span></h1>
+        <p class="intro">
+          We create thoughtful spaces for living, working, and growing.
+          From the first idea to the finishing details, let's build something
+          meaningful together.
+        </p>
+        <a class="button" href="#contact">Start Your Project ↗</a>
+        <a class="secondary-link" href="#projects">Explore Projects ↓</a>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div><strong>01</strong><span>Clear communication</span></div>
+      <div><strong>02</strong><span>Quality-focused work</span></div>
+      <div><strong>03</strong><span>Thoughtful planning</span></div>
+      <div><strong>04</strong><span>Client-first service</span></div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="section-heading reveal">
+        <p class="eyebrow">OUR SERVICES</p>
+        <h2>Everything starts with<br>a <span>strong plan.</span></h2>
+        <p>Services to help you plan, design, and improve your space.</p>
+      </div>
+
+      <div class="services-grid">
+        {% for number, title, description in services %}
+        <article class="service-card reveal">
+          <span class="number">{{ number }}</span>
+          <h3>{{ title }}</h3>
+          <p>{{ description }}</p>
+          <a href="#contact">Discuss this service ↗</a>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="section projects-section" id="projects">
+      <div class="section-heading reveal">
+        <p class="eyebrow">PROJECT GALLERY</p>
+        <h2>Ideas made <span>real.</span></h2>
+        <p>Example visuals to demonstrate the portfolio layout.</p>
+      </div>
+
+      <div class="projects-grid">
+        {% for project in projects %}
+        <article class="project-card reveal">
+          <img src="{{ project.image }}" alt="{{ project.title }}" loading="lazy">
+          <div class="project-info">
+            <p>{{ project.type }}</p>
+            <h3>{{ project.title }}</h3>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+      <p class="demo-note">
+        These are sample visuals, not verified completed company projects.
+      </p>
+    </section>
+
+    <section class="section about-section" id="about">
+      <div class="about-image reveal">
+        <img
+          src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80"
+          alt="Architectural planning and construction"
+          loading="lazy">
+      </div>
+      <div class="about-text reveal">
+        <p class="eyebrow">ABOUT OUR APPROACH</p>
+        <h2>Your vision.<br>Our <span>shared plan.</span></h2>
+        <p>
+          Every project begins by understanding your goals, priorities,
+          location, and budget. We believe good design combines beauty,
+          function, and responsible planning.
+        </p>
+        <ul>
+          <li>✓ Thoughtful design</li>
+          <li>✓ Clear communication</li>
+          <li>✓ Attention to detail</li>
+        </ul>
+        <a class="button" href="#contact">Tell Us Your Idea ↗</a>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <div class="contact-intro reveal">
+        <p class="eyebrow">LET'S TALK</p>
+        <h2>Have a project<br>in <span>mind?</span></h2>
+        <p>Tell us about your plans. Use this form to start a conversation.</p>
+        <p><strong>Location:</strong> Nepal — replace with your office address.</p>
+        <p><strong>Email:</strong> hello@yourcompany.com — replace this address.</p>
+      </div>
+
+      <div class="form-box reveal">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% for category, message in messages %}
+            <p class="message {{ category }}" role="status">{{ message }}</p>
+          {% endfor %}
+        {% endwith %}
+
+        <form action="{{ url_for('contact') }}" method="POST">
+          <label for="name">Your name *</label>
+          <input id="name" name="name" type="text" required maxlength="100"
+                 placeholder="Enter your name">
+
+          <label for="email">Email address *</label>
+          <input id="email" name="email" type="email" required maxlength="150"
+                 placeholder="you@example.com">
+
+          <label for="message">Project details *</label>
+          <textarea id="message" name="message" rows="5" required
+                    maxlength="3000"
+                    placeholder="Tell us about your project"></textarea>
+
+          <button class="button" type="submit">Send Enquiry ↗</button>
+          <p class="form-note">
+            Demo form only. Email or database delivery must be configured
+            before using this website for real customer enquiries.
+          </p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a href="#home" class="logo">BUILDORA<span>.</span></a>
+    <p>Built with purpose. Designed for living.</p>
+    <p>© <span id="year"></span> Buildora · Demo website</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
